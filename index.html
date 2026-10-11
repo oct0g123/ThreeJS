@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#cfe6ff" />
+    <title>Little Garden</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <div id="loading">
+      <div class="sprout">🌱</div>
+      <div>Growing your garden…</div>
+    </div>
+
+    <header id="topbar" class="ui">
+      <div class="brand"><span class="leaf">🌿</span> <span class="label">Little Garden</span></div>
+      <div id="top-actions"></div>
+    </header>
+    <div id="menu-panel" class="panel ui"></div>
+
+    <div id="hint" class="ui hidden"></div>
+
+    <footer id="dock" class="ui">
+      <div id="tool-cluster" class="panel"></div>
+      <div id="palette" class="panel">
+        <div class="palette-head">
+          <nav id="tabs"></nav>
+          <label id="brush-row" class="hidden">
+            <span>Brush</span>
+            <input id="brush" type="range" min="0.5" max="6" step="0.1" value="2.2" aria-label="Brush size" />
+          </label>
+        </div>
+        <div id="items"></div>
+      </div>
+    </footer>
+
+    <div id="toast"></div>
+
+    <div id="photo-bar">
+      <button id="photo-shot">📸 Save picture</button>
+      <button id="photo-exit">Done</button>
+    </div>
+
+    <div id="help" class="overlay">
+      <div class="card">
+        <h1>🌿 Welcome to Little Garden</h1>
+        <p>A tiny floating island that's all yours. Dig rivers, plant trees, and build a sleepy village.</p>
+        <ul>
+          <li><b>Pick something</b> from the bar at the bottom, then <b>click</b> to place it. Flowers, bushes and lily pads can be <b>dragged</b> to scatter. Fences draw in lines.</li>
+          <li><b>Land</b> tools sculpt hills, carve <b>rivers</b> and paint paths. Hold <kbd>Shift</kbd> to reverse a brush.</li>
+          <li><b>Right-drag</b> (or two fingers) to spin the camera, <b>scroll</b> to zoom and <b>middle-drag</b> or <kbd>WASD</kbd> to pan.</li>
+          <li><kbd>R</kbd> rotates, <kbd>[</kbd> <kbd>]</kbd> resize the brush, <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes, <kbd>P</kbd> is photo mode.</li>
+          <li>Slide the ☀️ to make it night and watch the lanterns come on.</li>
+        </ul>
+        <p class="small">Your garden saves itself in this browser.</p>
+        <button id="help-close" class="primary">Start gardening</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
