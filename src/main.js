@@ -19,7 +19,7 @@ import { History } from './game/history.js';
 import { Sound } from './game/audio.js';
 import { generateStarter, generateMeadow } from './game/starter.js';
 import { encodeWorld, decodeWorld, saveLocal, loadLocal, downloadJSON } from './game/storage.js';
-import { UI } from './ui/ui.js';
+import { UI, CAN_DOWNLOAD } from './ui/ui.js';
 import './style.css';
 
 const canvas = document.getElementById('scene');
@@ -178,7 +178,7 @@ const actions = {
     ui.toast('An empty meadow to fill');
   },
   export() {
-    downloadJSON(encodeWorld(terrain, objects, { time: env.time }), 'my-little-garden.json');
+    if (CAN_DOWNLOAD) downloadJSON(encodeWorld(terrain, objects, { time: env.time }), 'my-little-garden.json');
   },
   import() {
     const input = document.createElement('input');
@@ -344,7 +344,7 @@ function frame() {
 
   post.render(dt);
 
-  if (shotRequested) {
+  if (CAN_DOWNLOAD && shotRequested) {
     shotRequested = false;
     const a = document.createElement('a');
     a.href = renderer.domElement.toDataURL('image/png');

@@ -2,6 +2,9 @@ import { ICONS } from './icons.js';
 import { LAND_TOOLS, UTILITY_TOOLS } from '../game/tools.js';
 import { itemsInCategory } from '../objects/catalog.js';
 
+// The "artifact" build runs inside a sandbox where file downloads are blocked.
+export const CAN_DOWNLOAD = import.meta.env.MODE !== 'artifact';
+
 const TABS = [
   { id: 'land', name: 'Land', emoji: '⛰️' },
   { id: 'nature', name: 'Nature', emoji: '🌳' },
@@ -82,9 +85,9 @@ export class UI {
       <button data-act="starter">🏡 New starter island</button>
       <button data-act="meadow">🌱 New empty meadow</button>
       <hr>
-      <button data-act="export">💾 Save garden to file</button>
+      ${CAN_DOWNLOAD ? '<button data-act="export">💾 Save garden to file</button>' : ''}
       <button data-act="import">📂 Open garden file</button>
-      <button data-act="shot">📸 Save a picture</button>
+      ${CAN_DOWNLOAD ? '<button data-act="shot">📸 Save a picture</button>' : ''}
       <hr>
       <div class="quality">Quality
         <div class="seg" id="quality">
@@ -134,6 +137,7 @@ export class UI {
 
     $('#photo-exit').addEventListener('click', () => this.actions.photo(false));
     $('#photo-shot').addEventListener('click', () => this.actions.shot());
+    if (!CAN_DOWNLOAD) $('#photo-shot').remove();
     $('#help-close').addEventListener('click', () => this.showHelp(false));
     this._syncTime();
   }

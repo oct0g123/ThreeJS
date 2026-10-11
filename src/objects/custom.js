@@ -97,6 +97,13 @@ function toGameGeometry(root) {
   return geo;
 }
 
+function dataUriToBuffer(uri) {
+  const bin = atob(uri.slice(uri.indexOf(',') + 1));
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes.buffer;
+}
+
 const titleCase = (s) => s.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
 export async function loadCustomModels() {
@@ -106,7 +113,7 @@ export async function loadCustomModels() {
       const file = path.split('/').pop();
       const stem = file.replace(/\.glb$/i, '');
       try {
-        const gltf = await loader.loadAsync(url);
+        const gltf = url.startsWith('data:') ? await loader.parseAsync(dataUriToBuffer(url), '') : await loader.loadAsync(url);
         const geo = toGameGeometry(gltf.scene);
         const bb = geo.boundingBox;
         const size = Math.max(bb.max.x - bb.min.x, bb.max.z - bb.min.z);
